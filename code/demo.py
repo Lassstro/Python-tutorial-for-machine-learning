@@ -32,43 +32,80 @@
 #         print("Cảm ơn bạn đã chơi!")
 #         break
 
+# while True:
+#     user_name = input("Nhập tên đăng nhập: ")
+#     pass_word = input("Nhập mật khẩu: ")
+#     # loại bỏ khoảng trắng 2 đầu
+#     user_name = user_name.strip()
+#     pass_word = pass_word.strip()
+#     # Kiểm tra tên đăng nhập
+#     if len(user_name) < 8 or len(user_name) > 12:
+#         print("Tên đăng nhập không hợp lệ. Tên đăng nhập cần có 8-12 kí tự, Hãy kiểm tra lại")
+#         continue
+#     if not user_name.isalnum():
+#         print("Tên đăng nhập không hợp lệ. Tên đăng nhập chỉ chứa kí tự chữ và số. Hãy kiểm tra lại")
+#         continue
+#     print("Tên đăng nhập hợp lệ")
+#     # Kiểm tra mật khẩu
+#     if len(pass_word) < 8 or len(pass_word)> 12:
+#         print("Mật khẩu không hợp lệ. Mật khẩu cần có 8-12 kí tự")
+#         continue
+#     check_upper = False
+#     check_lower = False
+#     check_number = False
+#     check_special_character = False
+#     for character in pass_word:
+#         if character.isupper():
+#             check_upper = True
+#             continue
+#         if character.islower():
+#             check_lower = True
+#             continue
+#         if character.isnumeric():
+#             check_number = True
+#             continue
+#         if not character.isalnum():
+#             check_special_character = True
+#             continue
+#     if check_upper and check_lower and check_number and check_special_character:
+#         print('Hợp lệ')
+#         break
+#     else:
+#         print("Mật khẩu không hợp lệ. Mật khẩu bắt buộc có chữ cái viết hoa, chữ cái thường, số và kí tự đặc biệt. Hãy kiểm tra lại")
+import cv2
+
+# Mở video
+cap = cv2.VideoCapture('data/video.mp4')
+print(cap)
+# Kiểm tra video đã mở thành công chưa
+if cap.isOpened():
+    print('mở video')
+else:
+    print('Mở không thành công')
+# Lấy số frame và fps của video
+frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+# Tính độ dài video dựa trên số frame và fps
+video_length_sec = frame_count / fps
+
+# In kết quả
+print("Video length (seconds): ", video_length_sec)
+
 while True:
-    user_name = input("Nhập tên đăng nhập: ")
-    pass_word = input("Nhập mật khẩu: ")
-    # loại bỏ khoảng trắng 2 đầu
-    user_name = user_name.strip()
-    pass_word = pass_word.strip()
-    # Kiểm tra tên đăng nhập
-    if len(user_name) < 8 or len(user_name) > 12:
-        print("Tên đăng nhập không hợp lệ. Tên đăng nhập cần có 8-12 kí tự, Hãy kiểm tra lại")
-        continue
-    if not user_name.isalnum():
-        print("Tên đăng nhập không hợp lệ. Tên đăng nhập chỉ chứa kí tự chữ và số. Hãy kiểm tra lại")
-        continue
-    print("Tên đăng nhập hợp lệ")
-    # Kiểm tra mật khẩu
-    if len(pass_word) < 8 or len(pass_word)> 12:
-        print("Mật khẩu không hợp lệ. Mật khẩu cần có 8-12 kí tự")
-        continue
-    check_upper = False
-    check_lower = False
-    check_number = False
-    check_special_character = False
-    for character in pass_word:
-        if character.isupper():
-            check_upper = True
-            continue
-        if character.islower():
-            check_lower = True
-            continue
-        if character.isnumeric():
-            check_number = True
-            continue
-        if not character.isalnum():
-            check_special_character = True
-            continue
-    if check_upper and check_lower and check_number and check_special_character:
-        print('Hợp lệ')
-        break
+    # Đọc từng frame trong video
+    ret, frame = cap.read()
+    if ret == True:
+        cv2.imshow('Frame',frame)
+		# 20 is in milliseconds, try to increase the value, say 50 and observe
+        key = cv2.waitKey(20)
+        
+        if key == ord('q'):
+            break
     else:
-        print("Mật khẩu không hợp lệ. Mật khẩu bắt buộc có chữ cái viết hoa, chữ cái thường, số và kí tự đặc biệt. Hãy kiểm tra lại")
+        break
+
+
+# Giải phóng bộ nhớ và đóng đối tượng VideoCapture
+cap.release()
+cv2.destroyAllWindows()
