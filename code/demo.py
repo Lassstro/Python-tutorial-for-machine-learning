@@ -73,39 +73,43 @@
 #     else:
 #         print("Mật khẩu không hợp lệ. Mật khẩu bắt buộc có chữ cái viết hoa, chữ cái thường, số và kí tự đặc biệt. Hãy kiểm tra lại")
 import cv2
-
-# Mở video
+import numpy as np
+  
+# Create a VideoCapture object and read from input file
 cap = cv2.VideoCapture('data/video.mp4')
-print(cap)
-# Kiểm tra video đã mở thành công chưa
-if cap.isOpened():
-    print('mở video')
-else:
-    print('Mở không thành công')
-# Lấy số frame và fps của video
-frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-fps = int(cap.get(cv2.CAP_PROP_FPS))
-
-# Tính độ dài video dựa trên số frame và fps
-video_length_sec = frame_count / fps
-
-# In kết quả
-print("Video length (seconds): ", video_length_sec)
-
-while True:
-    # Đọc từng frame trong video
+  
+# Check if camera opened successfully
+if (cap.isOpened()== False):
+    print("Error opening video file")
+  
+# Read until video is completed
+while(cap.isOpened()):
+      
+# Capture frame-by-frame
     ret, frame = cap.read()
     if ret == True:
-        cv2.imshow('Frame',frame)
-		# 20 is in milliseconds, try to increase the value, say 50 and observe
-        key = cv2.waitKey(20)
-        
-        if key == ord('q'):
+    # Display the resulting frame
+        cv2.imshow('Frame', frame)
+          
+    # Press Q on keyboard to exit
+        if cv2.waitKey(25) & 0xFF == ord('q'):
             break
+  
+# Break the loop
     else:
         break
-
-
-# Giải phóng bộ nhớ và đóng đối tượng VideoCapture
+  
+# When everything done, release
+# the video capture object
 cap.release()
+  
+# Closes all the frames
 cv2.destroyAllWindows()
+
+# import cv2
+
+# # The function cv2.imread() is used to read an image.
+# img_grayscale = cv2.imread('data/hoacuc.jpg',0)
+# print(img_grayscale)
+# cv2.imshow('graycsale image',img_grayscale)
+# cv2.waitKey(0)
