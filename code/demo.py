@@ -72,39 +72,39 @@
 #         break
 #     else:
 #         print("Mật khẩu không hợp lệ. Mật khẩu bắt buộc có chữ cái viết hoa, chữ cái thường, số và kí tự đặc biệt. Hãy kiểm tra lại")
-import cv2
-import numpy as np
+# import cv2
+# import numpy as np
   
-# Create a VideoCapture object and read from input file
-cap = cv2.VideoCapture('data/video.mp4')
+# # Create a VideoCapture object and read from input file
+# cap = cv2.VideoCapture('data/video.mp4')
   
-# Check if camera opened successfully
-if (cap.isOpened()== False):
-    print("Error opening video file")
+# # Check if camera opened successfully
+# if (cap.isOpened()== False):
+#     print("Error opening video file")
   
-# Read until video is completed
-while(cap.isOpened()):
+# # Read until video is completed
+# while(cap.isOpened()):
       
-# Capture frame-by-frame
-    ret, frame = cap.read()
-    if ret == True:
-    # Display the resulting frame
-        cv2.imshow('Frame', frame)
+# # Capture frame-by-frame
+#     ret, frame = cap.read()
+#     if ret == True:
+#     # Display the resulting frame
+#         cv2.imshow('Frame', frame)
           
-    # Press Q on keyboard to exit
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
+#     # Press Q on keyboard to exit
+#         if cv2.waitKey(25) & 0xFF == ord('q'):
+#             break
   
-# Break the loop
-    else:
-        break
+# # Break the loop
+#     else:
+#         break
   
-# When everything done, release
-# the video capture object
-cap.release()
+# # When everything done, release
+# # the video capture object
+# cap.release()
   
-# Closes all the frames
-cv2.destroyAllWindows()
+# # Closes all the frames
+# cv2.destroyAllWindows()
 
 # import cv2
 
@@ -113,3 +113,35 @@ cv2.destroyAllWindows()
 # print(img_grayscale)
 # cv2.imshow('graycsale image',img_grayscale)
 # cv2.waitKey(0)
+
+# import matplotlib.pyplot as plt
+# x = [1,2,3,4]
+# y = [1,22,3,44]
+# fig = plt.figure(figsize=(10,5)) #Create a figure
+# ax = fig.add_subplot() #adds some axs
+# ax.plot(x,y) #add some data
+# plt.show()
+
+import os
+
+folder = r'D:\WORKSPACES\job-trainning-python-machine-learning\code\\'
+count = 1
+# count increase by 1 in each iteration
+# iterate all files from a directory
+for file_name in os.listdir(folder):
+    # Construct old file name
+    if 'lesson' in file_name:
+        source = folder + file_name
+        print(file_name)
+        # # Adding the count to the new file name and extension
+        destination = folder + file_name.replace("lesson","")
+
+        # # Renaming the file
+        os.rename(source, destination)
+        # count += 1
+print('All Files Renamed')
+
+print('New Names are')
+# verify the result
+res = os.listdir(folder)
+print(res)
