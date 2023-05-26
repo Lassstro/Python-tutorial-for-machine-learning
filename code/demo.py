@@ -121,27 +121,3 @@
 # ax = fig.add_subplot() #adds some axs
 # ax.plot(x,y) #add some data
 # plt.show()
-
-import os
-
-folder = r'D:\WORKSPACES\job-trainning-python-machine-learning\code\\'
-count = 1
-# count increase by 1 in each iteration
-# iterate all files from a directory
-for file_name in os.listdir(folder):
-    # Construct old file name
-    if 'lesson' in file_name:
-        source = folder + file_name
-        print(file_name)
-        # # Adding the count to the new file name and extension
-        destination = folder + file_name.replace("lesson","")
-
-        # # Renaming the file
-        os.rename(source, destination)
-        # count += 1
-print('All Files Renamed')
-
-print('New Names are')
-# verify the result
-res = os.listdir(folder)
-print(res)
